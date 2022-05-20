@@ -195,7 +195,7 @@ function findBestMove(board) {
     return bestMove;
 }
 
-function buildMat(rows, cols) {
+function createMat(rows, cols) {
     var mat = [];
     for (var i = 0; i < rows; i++) {
         mat[i] = [];
@@ -207,20 +207,33 @@ function buildMat(rows, cols) {
     return mat;
 }
 
-// function createMat() {
-//     const mat = []
-//     for (let i = 0; i < 3; i++) {
-//         const row = []
-//         mat.push(row)
-//     }
-// }
+function renderMat(mat, selector) {
+    var strHTML = '';
+    for (var i = 0; i < mat.length; i++) {
+        strHTML += '<tr>';
+        for (var j = 0; j < mat[0].length; j++) {
+            var cell = mat[i][j];
+            var className = 'cell' + i + '-' + j;
+            strHTML += `<td class="${className}"> ${cell} </td>`;
+        }
+        strHTML += '</tr>';
+    }
+    var elContainer = document.querySelector(selector);
+    elContainer.innerHTML = strHTML;
+}
+
+
+let board = createMat(3, 3);
+renderMat(board, '.board')
+
+
 
 // Driver code
-let board = [
-    ['o', 'o', 'x'],
-    ['o', 'x', 'o'],
-    ['_', '_', '_']
-];
+// let board = [
+//     ['o', 'o', 'x'],
+//     ['o', 'x', 'o'],
+//     ['_', '_', '_']
+// ];
 
 let bestMove = findBestMove(board);
 console.log('bestMove', bestMove);
