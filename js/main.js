@@ -235,13 +235,7 @@ function renderMat(mat, selector) {
 }
 
 
-// let gBoard = createMat(3, 3);
-// renderMat(gBoard, '.board')
-// playComputerTurn()
 
-// const elCell = document.querySelector('.cell0-2')
-// elCell.innerText = gCurrSymbol
-// console.log('elCell', elCell);
 function playTurn(elCell, loc) {
     if (elCell.innerText !== '_') return
     const nums = loc.split(' ')
@@ -263,23 +257,7 @@ function playComputerTurn() {
 
 
 
-// Driver code
-// let board = [
-//     ['o', 'o', 'x'],
-//     ['o', 'x', 'o'],
-//     ['_', '_', '_']
-// ];
 
-// let bestMove = findBestMove(gBoard);
-// console.log('bestMove', bestMove);
 
-// gBoard[bestMove.row][bestMove.col] = player
 
-// console.table(gBoard)
-
-// document.write("The Optimal Move is :<br>");
-// document.write("ROW: " + bestMove.row +
-//     " COL: " + bestMove.col + "<br>");
-
-// This code is contributed by rag2127
 
