@@ -18,6 +18,9 @@ function init() {
     renderMat(gBoard, '.board')
     moveCount = 0
     gGameOver = false
+    const elModal = document.querySelector('.modal')
+    elModal.style.display = 'none';
+
 }
 
 // This function returns true if there are moves
@@ -350,7 +353,7 @@ function checkMiddle(symbol, row, col) {
 }
 
 function showModal(isWin) {
-    const msg = isWin ? 'Computer As Win!' : 'It`s a Tie'
+    const msg = isWin ? 'Computer Win!' : 'It`s a Tie'
     const imgSrc = isWin ? 'img/win.gif' : 'img/equal.gif'
     const elModal = document.querySelector('.modal')
     const elTitle = document.querySelector('.modal h1')
@@ -360,7 +363,7 @@ function showModal(isWin) {
     elModal.style.display = "block"
     setTimeout(() => {
         elModal.style.display = 'none';
-    }, 2000)
+    }, 6000)
 }
 
 function playComputerTurn() {
