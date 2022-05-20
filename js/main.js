@@ -346,6 +346,16 @@ function checkMiddle(symbol, row, col) {
     return false
 }
 
+function showModal() {
+    const elModal = document.querySelector('.modal')
+    const elTitle = document.querySelector('.modal h1')
+    elTitle.innerText = 'Computer As Win!'
+    elModal.style.display = "block"
+    setTimeout(() => {
+        elModal.style.display = 'none';
+    }, 2000)
+}
+
 function playComputerTurn() {
     if (gGameOver) return
     const bestMove = findBestMove(gBoard);
@@ -357,7 +367,10 @@ function playComputerTurn() {
     console.table(gBoard)
     if (moveCount > 4) {
         const res = isWin(loc)
-        if (res) gGameOver = true
+        if (res) {
+            gGameOver = true
+            showModal()
+        }
     }
     const selector = `.cell${bestMove.row}-${bestMove.col}`
     const elCell = document.querySelector(selector)

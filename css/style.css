@@ -32,3 +32,20 @@ table{
     height: 200px;
     display: none;
 }
+
+.modal{
+    position: relative;
+   margin: auto;
+    background-color: rgb(189, 189, 230);
+    height: 350px;
+    width: 300px;
+    display: none;
+}
+
+.win-image{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    height: 200px;
+}
