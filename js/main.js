@@ -11,11 +11,13 @@ let player = 'x', opponent = 'o';
 let gCurrSymbol = 'o'
 let gBoard = null
 let moveCount = 0;
+let gGameOver = false
 
 function init() {
     gBoard = createMat(3, 3);
     renderMat(gBoard, '.board')
     moveCount = 0
+    gGameOver = false
 }
 
 // This function returns true if there are moves
@@ -244,11 +246,18 @@ function renderMat(mat, selector) {
 
 
 function playTurn(elCell, loc) {
+    if (gGameOver) return
     if (elCell.innerText !== '_') return
     const nums = loc.split(' ')
     gBoard[+nums[0]][+nums[1]] = gCurrSymbol
     elCell.innerText = gCurrSymbol
     moveCount++
+    //always be a tie
+    // const pos = { i: +nums[0], j: +nums[1] }
+    // if (moveCount > 4) {
+    //     const res = checkWin(pos)
+    //     console.log('res', res);
+    // }
     console.log('moveCount', moveCount);
     console.log('computer turn!');
     showLoading()
@@ -263,7 +272,7 @@ function showLoading() {
     }, 1000)
 }
 
-function checkWin(loc) {
+function isWin(loc) {
     const row = loc.i
     const col = loc.j
     const symbol = gBoard[row][col]
@@ -338,6 +347,7 @@ function checkMiddle(symbol, row, col) {
 }
 
 function playComputerTurn() {
+    if (gGameOver) return
     const bestMove = findBestMove(gBoard);
     if (bestMove.row < 0) return
     gBoard[bestMove.row][bestMove.col] = player
@@ -346,8 +356,8 @@ function playComputerTurn() {
     console.log('moveCount', moveCount);
     console.table(gBoard)
     if (moveCount > 4) {
-        const res = checkWin(loc)
-        console.log('res', res);
+        const res = isWin(loc)
+        if (res) gGameOver = true
     }
     const selector = `.cell${bestMove.row}-${bestMove.col}`
     const elCell = document.querySelector(selector)
