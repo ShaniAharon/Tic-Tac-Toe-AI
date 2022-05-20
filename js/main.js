@@ -8,6 +8,7 @@ class Move {
 }
 
 let player = 'x', opponent = 'o';
+let gCurrSymbol = 'o'
 
 // This function returns true if there are moves
 // remaining on the board. It returns false if
@@ -214,7 +215,13 @@ function renderMat(mat, selector) {
         for (var j = 0; j < mat[0].length; j++) {
             var cell = mat[i][j];
             var className = 'cell' + i + '-' + j;
-            strHTML += `<td class="${className}"> ${cell} </td>`;
+            var loc = {
+                i: i, j: j,
+                toString() {
+                    return this.i + ' ' + this.j
+                }
+            }
+            strHTML += `<td onclick="playTurn(this,'${loc}')" class="${className}"> ${cell} </td>`;
         }
         strHTML += '</tr>';
     }
@@ -223,10 +230,15 @@ function renderMat(mat, selector) {
 }
 
 
-let board = createMat(3, 3);
-renderMat(board, '.board')
+let gBoard = createMat(3, 3);
+renderMat(gBoard, '.board')
 
-
+function playTurn(elCell, loc) {
+    if (elCell.innerText !== '_') return
+    const nums = loc.split(' ')
+    gBoard[+nums[0]][+nums[1]] = gCurrSymbol
+    elCell.innerText = gCurrSymbol
+}
 
 // Driver code
 // let board = [
@@ -235,12 +247,12 @@ renderMat(board, '.board')
 //     ['_', '_', '_']
 // ];
 
-let bestMove = findBestMove(board);
+let bestMove = findBestMove(gBoard);
 console.log('bestMove', bestMove);
 
-board[bestMove.row][bestMove.col] = player
+gBoard[bestMove.row][bestMove.col] = player
 
-console.table(board)
+console.table(gBoard)
 
 document.write("The Optimal Move is :<br>");
 document.write("ROW: " + bestMove.row +
