@@ -242,7 +242,16 @@ function playTurn(elCell, loc) {
     gBoard[+nums[0]][+nums[1]] = gCurrSymbol
     elCell.innerText = gCurrSymbol
     console.log('computer turn!');
+    showLoading()
     setTimeout(playComputerTurn, 1000) //playComputerTurn()
+}
+
+function showLoading() {
+    const elImg = document.querySelector('.load')
+    elImg.style.display = 'block';
+    setTimeout(() => {
+        elImg.style.display = 'none';
+    }, 1000)
 }
 
 function playComputerTurn() {
