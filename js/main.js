@@ -1,11 +1,11 @@
 
 // Javascript program to find the
 // next optimal move for a player
-class Move {
-    constructor() {
-        let row, col;
-    }
-}
+// class Move {
+//     constructor() {
+//         let row, col;
+//     }
+// }
 
 let player = 'x', opponent = 'o';
 let gCurrSymbol = 'o'
