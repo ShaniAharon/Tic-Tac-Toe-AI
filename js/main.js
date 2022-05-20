@@ -252,6 +252,9 @@ function playTurn(elCell, loc) {
     gBoard[+nums[0]][+nums[1]] = gCurrSymbol
     elCell.innerText = gCurrSymbol
     moveCount++
+    if (moveCount === 9) {
+        showModal(false)
+    }
     //always be a tie
     // const pos = { i: +nums[0], j: +nums[1] }
     // if (moveCount > 4) {
@@ -346,10 +349,14 @@ function checkMiddle(symbol, row, col) {
     return false
 }
 
-function showModal() {
+function showModal(isWin) {
+    const msg = isWin ? 'Computer As Win!' : 'It`s a Tie'
+    const imgSrc = isWin ? 'img/win.gif' : 'img/equal.gif'
     const elModal = document.querySelector('.modal')
     const elTitle = document.querySelector('.modal h1')
-    elTitle.innerText = 'Computer As Win!'
+    const elImg = document.querySelector('.modal img')
+    elTitle.innerText = msg
+    elImg.src = imgSrc
     elModal.style.display = "block"
     setTimeout(() => {
         elModal.style.display = 'none';
@@ -369,7 +376,7 @@ function playComputerTurn() {
         const res = isWin(loc)
         if (res) {
             gGameOver = true
-            showModal()
+            showModal(true)
         }
     }
     const selector = `.cell${bestMove.row}-${bestMove.col}`
