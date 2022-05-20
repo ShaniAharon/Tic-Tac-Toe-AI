@@ -9,6 +9,11 @@ class Move {
 
 let player = 'x', opponent = 'o';
 let gCurrSymbol = 'o'
+let gBoard = null
+function init() {
+    gBoard = createMat(3, 3);
+    renderMat(gBoard, '.board')
+}
 
 // This function returns true if there are moves
 // remaining on the board. It returns false if
@@ -154,7 +159,7 @@ function minimax(board, depth, isMax) {
 // move for the player
 function findBestMove(board) {
     let bestVal = -1000;
-    let bestMove = new Move();//{row,col}
+    let bestMove = { row: null, col: null }//new Move();//{row,col}
     bestMove.row = -1;
     bestMove.col = -1;
 
@@ -190,8 +195,8 @@ function findBestMove(board) {
         }
     }
 
-    document.write("The value of the best Move " +
-        "is : ", bestVal + "<br><br>");
+    // document.write("The value of the best Move " +
+    //     "is : ", bestVal + "<br><br>");
 
     return bestMove;
 }
@@ -230,15 +235,33 @@ function renderMat(mat, selector) {
 }
 
 
-let gBoard = createMat(3, 3);
-renderMat(gBoard, '.board')
+// let gBoard = createMat(3, 3);
+// renderMat(gBoard, '.board')
+// playComputerTurn()
 
+// const elCell = document.querySelector('.cell0-2')
+// elCell.innerText = gCurrSymbol
+// console.log('elCell', elCell);
 function playTurn(elCell, loc) {
     if (elCell.innerText !== '_') return
     const nums = loc.split(' ')
     gBoard[+nums[0]][+nums[1]] = gCurrSymbol
     elCell.innerText = gCurrSymbol
+    console.log('computer turn!');
+    setTimeout(playComputerTurn, 1000) //playComputerTurn()
 }
+
+function playComputerTurn() {
+    const bestMove = findBestMove(gBoard);
+    if (bestMove.row < 0) return
+    gBoard[bestMove.row][bestMove.col] = player
+    console.table(gBoard)
+    const selector = `.cell${bestMove.row}-${bestMove.col}`
+    const elCell = document.querySelector(selector)
+    elCell.innerText = player
+}
+
+
 
 // Driver code
 // let board = [
@@ -247,16 +270,16 @@ function playTurn(elCell, loc) {
 //     ['_', '_', '_']
 // ];
 
-let bestMove = findBestMove(gBoard);
-console.log('bestMove', bestMove);
+// let bestMove = findBestMove(gBoard);
+// console.log('bestMove', bestMove);
 
-gBoard[bestMove.row][bestMove.col] = player
+// gBoard[bestMove.row][bestMove.col] = player
 
-console.table(gBoard)
+// console.table(gBoard)
 
-document.write("The Optimal Move is :<br>");
-document.write("ROW: " + bestMove.row +
-    " COL: " + bestMove.col + "<br>");
+// document.write("The Optimal Move is :<br>");
+// document.write("ROW: " + bestMove.row +
+//     " COL: " + bestMove.col + "<br>");
 
 // This code is contributed by rag2127
 
