@@ -10,9 +10,12 @@ class Move {
 let player = 'x', opponent = 'o';
 let gCurrSymbol = 'o'
 let gBoard = null
+let moveCount = 0;
+
 function init() {
     gBoard = createMat(3, 3);
     renderMat(gBoard, '.board')
+    moveCount = 0
 }
 
 // This function returns true if there are moves
@@ -87,18 +90,22 @@ function minimax(board, depth, isMax) {
 
     // If Maximizer has won the game
     // return his/her evaluated score
-    if (score == 10)
+    if (score == 10) {
         return score;
+    }
 
     // If Minimizer has won the game
     // return his/her evaluated score
-    if (score == -10)
+    if (score == -10) {
+
         return score;
+    }
 
     // If there are no more moves and
     // no winner then it is a tie
-    if (isMovesLeft(board) == false)
+    if (isMovesLeft(board) == false) {
         return 0;
+    }
 
     // If this maximizer's move
     if (isMax) {
@@ -241,6 +248,8 @@ function playTurn(elCell, loc) {
     const nums = loc.split(' ')
     gBoard[+nums[0]][+nums[1]] = gCurrSymbol
     elCell.innerText = gCurrSymbol
+    moveCount++
+    console.log('moveCount', moveCount);
     console.log('computer turn!');
     showLoading()
     setTimeout(playComputerTurn, 1000) //playComputerTurn()
@@ -254,11 +263,92 @@ function showLoading() {
     }, 1000)
 }
 
+function checkWin(loc) {
+    const row = loc.i
+    const col = loc.j
+    const symbol = gBoard[row][col]
+    //on the main diagonal
+    if (row === col) {
+        if (row === 1 && col === 1) {
+            return checkCenter(symbol, row, col)
+        }
+        return checkMainCorner(symbol, row, col)
+    }
+
+    //on the sec diagonal
+    if (row + col + 1 === gBoard[row].length) {
+        return checkSecCorner(symbol, row, col)
+    }
+
+    //on the middle
+    return checkMiddle(symbol, row, col)
+}
+
+function checkRow(rowIdx, symbol) {
+    for (let i = 0; i < gBoard[rowIdx].length; i++) {
+        if (gBoard[rowIdx][i] !== symbol) return false
+    }
+    console.log('yes win', symbol);
+    return true
+}
+
+function checkCol(colIdx, symbol) {
+    for (let i = 0; i < gBoard.length; i++) {
+        if (gBoard[i][colIdx] !== symbol) return false
+    }
+    console.log('yes win', symbol);
+    return true
+}
+
+function checkMainD(symbol) {
+    for (let i = 0; i < gBoard.length; i++) {
+        if (gBoard[i][i] !== symbol) return false
+    }
+    console.log('yes win', symbol);
+    return true
+}
+
+function checkSecD(symbol) {
+    for (let i = 0; i < gBoard.length; i++) {
+        if (gBoard[i][gBoard[i].length - i - 1] !== symbol) return false
+    }
+    console.log('yes win', symbol);
+    return true
+}
+
+function checkCenter(symbol, row, col) {
+    if (checkRow(row, symbol) || checkCol(col, symbol)
+        || checkMainD(symbol) || checkSecD(symbol)) return true
+    return false
+}
+
+function checkMainCorner(symbol, row, col) {
+    if (checkRow(row, symbol) || checkCol(col, symbol) || checkMainD(symbol)) return true
+    return false
+}
+
+function checkSecCorner(symbol, row, col) {
+    if (checkRow(row, symbol) || checkCol(col, symbol) || checkSecD(symbol)) return true
+    return false
+}
+
+function checkMiddle(symbol, row, col) {
+    if (checkRow(row, symbol) || checkCol(col, symbol)) return true
+    return false
+}
+
 function playComputerTurn() {
     const bestMove = findBestMove(gBoard);
     if (bestMove.row < 0) return
     gBoard[bestMove.row][bestMove.col] = player
+    const loc = { i: bestMove.row, j: bestMove.col }
+    moveCount++
+    console.log('moveCount', moveCount);
     console.table(gBoard)
+    if (moveCount > 4) {
+        const res = checkWin(loc)
+        console.log('res', res);
+    }
     const selector = `.cell${bestMove.row}-${bestMove.col}`
     const elCell = document.querySelector(selector)
     elCell.innerText = player
