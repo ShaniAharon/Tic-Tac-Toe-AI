@@ -2,8 +2,9 @@
 // Javascript program to find the
 // next optimal move for a player
 
-let player = 'x', opponent = 'o';
-let gCurrSymbol = 'o'
+let player = '❌', opponent = '⭕';
+let gCurrSymbol = '⭕'
+//
 let gBoard = null
 let moveCount = 0;
 let gGameOver = false
@@ -24,7 +25,7 @@ function init() {
 function isMovesLeft(board) {
     for (let i = 0; i < 3; i++)
         for (let j = 0; j < 3; j++)
-            if (board[i][j] == '_')
+            if (board[i][j] == ' ')
                 return true;
 
     return false;
@@ -116,7 +117,7 @@ function minimax(board, depth, isMax) {
             for (let j = 0; j < 3; j++) {
 
                 // Check if cell is empty
-                if (board[i][j] == '_') {
+                if (board[i][j] == ' ') {
 
                     // Make the move
                     board[i][j] = player;
@@ -127,7 +128,7 @@ function minimax(board, depth, isMax) {
                         depth + 1, !isMax));
 
                     // Undo the move
-                    board[i][j] = '_';
+                    board[i][j] = ' ';
                 }
             }
         }
@@ -143,7 +144,7 @@ function minimax(board, depth, isMax) {
             for (let j = 0; j < 3; j++) {
 
                 // Check if cell is empty
-                if (board[i][j] == '_') {
+                if (board[i][j] == ' ') {
 
                     // Make the move
                     board[i][j] = opponent;
@@ -154,7 +155,7 @@ function minimax(board, depth, isMax) {
                         depth + 1, !isMax));
 
                     // Undo the move
-                    board[i][j] = '_';
+                    board[i][j] = ' ';
                 }
             }
         }
@@ -178,7 +179,7 @@ function findBestMove(board) {
         for (let j = 0; j < 3; j++) {
 
             // Check if cell is empty
-            if (board[i][j] == '_') {
+            if (board[i][j] == ' ') {
 
                 // Make the move
                 board[i][j] = player;
@@ -188,7 +189,7 @@ function findBestMove(board) {
                 let moveVal = minimax(board, 0, false);
 
                 // Undo the move
-                board[i][j] = '_';
+                board[i][j] = ' ';
 
                 // If the value of the current move
                 // is more than the best value, then
@@ -210,7 +211,7 @@ function createMat(rows, cols) {
     for (var i = 0; i < rows; i++) {
         mat[i] = [];
         for (var j = 0; j < cols; j++) {
-            mat[i][j] = '_';
+            mat[i][j] = ' ';
         }
     }
     console.table(mat);
@@ -242,7 +243,7 @@ function renderMat(mat, selector) {
 
 function playTurn(elCell, loc) {
     if (gGameOver) return
-    if (elCell.innerText !== '_') return
+    if (elCell.innerText) return
     const nums = loc.split(' ')
     gBoard[+nums[0]][+nums[1]] = gCurrSymbol
     elCell.innerText = gCurrSymbol
@@ -344,7 +345,7 @@ function showModal(isWin) {
     elModal.style.display = "block"
     setTimeout(() => {
         elModal.style.display = 'none';
-    }, 6000)
+    }, 8000)
 }
 
 function playComputerTurn() {
@@ -359,7 +360,7 @@ function playComputerTurn() {
         const res = isWin(loc)
         if (res) {
             gGameOver = true
-            showModal(true)
+            setTimeout(() => showModal(true), 350)
         }
     }
     const selector = `.cell${bestMove.row}-${bestMove.col}`
