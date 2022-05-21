@@ -1,11 +1,6 @@
 
 // Javascript program to find the
 // next optimal move for a player
-// class Move {
-//     constructor() {
-//         let row, col;
-//     }
-// }
 
 let player = 'x', opponent = 'o';
 let gCurrSymbol = 'o'
@@ -207,9 +202,6 @@ function findBestMove(board) {
         }
     }
 
-    // document.write("The value of the best Move " +
-    //     "is : ", bestVal + "<br><br>");
-
     return bestMove;
 }
 
@@ -259,13 +251,6 @@ function playTurn(elCell, loc) {
         showModal(false)
     }
     //always be a tie
-    // const pos = { i: +nums[0], j: +nums[1] }
-    // if (moveCount > 4) {
-    //     const res = checkWin(pos)
-    //     console.log('res', res);
-    // }
-    console.log('moveCount', moveCount);
-    console.log('computer turn!');
     showLoading()
     setTimeout(playComputerTurn, 1000) //playComputerTurn()
 }
@@ -303,7 +288,6 @@ function checkRow(rowIdx, symbol) {
     for (let i = 0; i < gBoard[rowIdx].length; i++) {
         if (gBoard[rowIdx][i] !== symbol) return false
     }
-    console.log('yes win', symbol);
     return true
 }
 
@@ -311,7 +295,6 @@ function checkCol(colIdx, symbol) {
     for (let i = 0; i < gBoard.length; i++) {
         if (gBoard[i][colIdx] !== symbol) return false
     }
-    console.log('yes win', symbol);
     return true
 }
 
@@ -319,7 +302,6 @@ function checkMainD(symbol) {
     for (let i = 0; i < gBoard.length; i++) {
         if (gBoard[i][i] !== symbol) return false
     }
-    console.log('yes win', symbol);
     return true
 }
 
@@ -327,7 +309,6 @@ function checkSecD(symbol) {
     for (let i = 0; i < gBoard.length; i++) {
         if (gBoard[i][gBoard[i].length - i - 1] !== symbol) return false
     }
-    console.log('yes win', symbol);
     return true
 }
 
@@ -373,8 +354,7 @@ function playComputerTurn() {
     gBoard[bestMove.row][bestMove.col] = player
     const loc = { i: bestMove.row, j: bestMove.col }
     moveCount++
-    console.log('moveCount', moveCount);
-    console.table(gBoard)
+    // console.table(gBoard)
     if (moveCount > 4) {
         const res = isWin(loc)
         if (res) {
