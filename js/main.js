@@ -360,7 +360,7 @@ function playComputerTurn() {
         const res = isWin(loc)
         if (res) {
             gGameOver = true
-            setTimeout(() => showModal(true), 350)
+            setTimeout(() => showModal(true), 450)
         }
     }
     const selector = `.cell${bestMove.row}-${bestMove.col}`
