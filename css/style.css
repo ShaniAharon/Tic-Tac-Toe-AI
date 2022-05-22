@@ -9,17 +9,21 @@ body{
 
 .title{
     /* color: rgb(150, 201, 175); */
-    color: rgb(79 153 115);
+    color: #f44336;/*rgb(79 153 115);*/
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
 }
 
 h1{
     text-align: center;
+    color:#ff5722
 }
 
 table{
     /* border: 1px solid black; */
     border-collapse: collapse;
     margin: auto;
+    margin-top: 40px;
 }
 
 .board td {
@@ -60,8 +64,8 @@ table{
     top: 50%;
     transform: translate(-50%,-50%);
    margin: auto;
-    background-color: rgb(189, 189, 230);
-    height: 360px;
+    background-color: rgb(252, 252, 252);
+    height: 400px;
     width: 300px;
     display: none;
     border-radius: 10px;
@@ -75,7 +79,8 @@ table{
     padding: 12px 16px;
     border-radius: 10px;
     background-color: white;
-    color: rgb(42, 180, 134);
+    /* color: rgb(42, 180, 134); */
+    color: #ee483c;
     font-size: 16px;
     border: none;
     left: 50%;
@@ -86,8 +91,10 @@ table{
 
 .btn-restart:hover{
     background-color: rgba(255, 255, 255, 0.941);
-    color: rgb(87, 208, 168);
-    border: 1px solid rgb(42, 180, 134);
+    /* color: rgb(87, 208, 168); */
+    color: #f44336;
+    /* border: 1px solid rgb(42, 180, 134); */
+    border: 1px solid #ff5722;
 }
 
 .btn-res{
