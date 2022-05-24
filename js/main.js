@@ -345,7 +345,7 @@ function showModal(isWin) {
     elModal.style.display = "block"
     setTimeout(() => {
         elModal.style.display = 'none';
-    }, 8000)
+    }, 6000)
 }
 
 function playComputerTurn() {
